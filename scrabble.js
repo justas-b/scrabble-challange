@@ -99,22 +99,25 @@ function main() {
 
   hand = drawFromBag(hand, bag);
 
-  do {
-    let userWord = window
-      .prompt(`Your tiles are ${hand}, please enter a valid word: `)
-      .toLowerCase();
-    isValid = checkWord(userWord);
-    if (!isValid) {
-      console.log(`${userWord} is not a valid word! Try again.`);
-    } else {
-      console.log(
-        `${userWord} is a valid word! ${wordScore(userWord)} points.`
-      );
-      userScore += wordScore(userWord);
-      hand = removeLetters(userWord, hand);
-      drawFromBag(hand, bag);
-    }
-  } while (!isValid);
+  while (bag.length > 0) {
+    do {
+      let userWord = window
+        .prompt(`Your tiles are ${hand}, please enter a valid word: `)
+        .toLowerCase();
+      isValid = checkWord(userWord);
+      if (!isValid) {
+        console.log(`${userWord} is not a valid word! Try again.`);
+      } else {
+        console.log(
+          `${userWord} is a valid word! ${wordScore(userWord)} points.`
+        );
+        userScore += wordScore(userWord);
+        hand = removeLetters(userWord, hand);
+        drawFromBag(hand, bag);
+        console.log(`Your current score is ${userScore}`);
+      }
+    } while (!isValid);
+  }
 }
 
 main();

@@ -1,3 +1,5 @@
+import shuffle from "./shuffle.js";
+
 // need to calculate score for each word
 // map letters to each score
 // function that takes word as an argument and returns the score
@@ -41,7 +43,7 @@ function drawFromAlphabet() {
 // use the shuffle function from blackjack to shuffle the tiles
 // return array of shuffled tiles
 // shift 7 tiles from the start of the array and add to hand
-function makeBag() {
+function makeShuffledBag() {
   let bag = [];
 
   for (let tile in tilesCount) {
@@ -51,9 +53,9 @@ function makeBag() {
     }
   }
 
-  return bag;
+  return shuffle(bag, Date.now());
 }
 
-//console.log(makeBag());
+console.log(makeShuffledBag());
 //console.log(wordScore("hello"));
 //console.log(drawFromAlphabet());

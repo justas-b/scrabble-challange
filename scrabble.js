@@ -43,6 +43,7 @@ function drawFromAlphabet() {
 // use the shuffle function from blackjack to shuffle the tiles
 // return array of shuffled tiles
 // shift 7 tiles from the start of the array and add to hand
+
 function makeShuffledBag() {
   let bag = [];
 
@@ -66,8 +67,18 @@ function drawFromBag(hand, bag) {
   return updatedHand;
 }
 
-let bag = makeShuffledBag();
-let hand = [];
+//need to check whether a user entered word is a valid word
+//will import the dictionary and filter out words that are >7 letter as we are only given 7 tiles
+//will loop through the filtered dictionary and check whether the word they input is valid and output the score
+//will have a score variable that tracks their score
+//tried opening the dictionary file, however, didn't manage it after many attempts and searching
 
-hand = drawFromBag(hand, bag);
-console.log(hand);
+function main() {
+  let bag = makeShuffledBag();
+  let hand = [];
+
+  hand = drawFromBag(hand, bag);
+  console.log(hand);
+}
+
+main();

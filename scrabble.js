@@ -4,6 +4,10 @@ import shuffle from "./shuffle.js";
 // map letters to each score
 // function that takes word as an argument and returns the score
 
+let dict = await Deno.readTextFile("./dictionary.txt");
+let dictArray = dict.split("\n");
+let filteredArray = dictArray.filter((word) => word.length < 8);
+
 //prettier-ignore
 const scores = {"e": 1, "a": 1, "i": 1, "o": 1, "n": 1, "r": 1, "t": 1, "l": 1, "s": 1, "u": 1,
                 "d": 2, "g": 2, "b": 3, "c": 3, "m": 3, "p": 3, "f": 4, "h": 4, "v": 4, "w": 4,
@@ -73,12 +77,34 @@ function drawFromBag(hand, bag) {
 //will have a score variable that tracks their score
 //tried opening the dictionary file, however, didn't manage it after many attempts and searching
 
+function checkWord(word) {
+  if (filteredArray.some((checkWord) => word === checkWord)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 function main() {
   let bag = makeShuffledBag();
   let hand = [];
+  let isValid = true;
 
   hand = drawFromBag(hand, bag);
-  console.log(hand);
+
+  do {
+    let userWord = window.prompt(
+      `Your tiles are ${hand}, please enter a valid word: `
+    );
+    isValid = checkWord(userWord);
+    if (!isValid) {
+      console.log(`${userWord} is not a valid word! Try again.`);
+    } else {
+      console.log(
+        `${userWord} is a valid word! ${wordScore(userWord)} points.`
+      );
+    }
+  } while (!isValid);
 }
 
 main();

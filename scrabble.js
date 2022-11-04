@@ -75,7 +75,6 @@ function drawFromBag(hand, bag) {
 //will import the dictionary and filter out words that are >7 letter as we are only given 7 tiles
 //will loop through the filtered dictionary and check whether the word they input is valid and output the score
 //will have a score variable that tracks their score
-//tried opening the dictionary file, however, didn't manage it after many attempts and searching
 
 function checkWord(word) {
   if (filteredArray.some((checkWord) => word === checkWord)) {
@@ -85,17 +84,25 @@ function checkWord(word) {
   }
 }
 
+function removeLetters(word, hand) {
+  for (let i = 0; i < word.length; i++) {
+    hand.splice(hand.indexOf(word[i]), 1);
+  }
+  return hand;
+}
+
 function main() {
   let bag = makeShuffledBag();
   let hand = [];
+  let userScore = 0;
   let isValid = true;
 
   hand = drawFromBag(hand, bag);
 
   do {
-    let userWord = window.prompt(
-      `Your tiles are ${hand}, please enter a valid word: `
-    );
+    let userWord = window
+      .prompt(`Your tiles are ${hand}, please enter a valid word: `)
+      .toLowerCase();
     isValid = checkWord(userWord);
     if (!isValid) {
       console.log(`${userWord} is not a valid word! Try again.`);
@@ -103,6 +110,9 @@ function main() {
       console.log(
         `${userWord} is a valid word! ${wordScore(userWord)} points.`
       );
+      userScore += wordScore(userWord);
+      hand = removeLetters(userWord, hand);
+      drawFromBag(hand, bag);
     }
   } while (!isValid);
 }

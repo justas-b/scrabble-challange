@@ -56,6 +56,18 @@ function makeShuffledBag() {
   return shuffle(bag, Date.now());
 }
 
-console.log(makeShuffledBag());
-//console.log(wordScore("hello"));
-//console.log(drawFromAlphabet());
+function drawFromBag(hand, bag) {
+  let updatedHand = hand;
+
+  while (updatedHand.length < 7) {
+    updatedHand.push(bag.shift());
+  }
+
+  return updatedHand;
+}
+
+let bag = makeShuffledBag();
+let hand = [];
+
+hand = drawFromBag(hand, bag);
+console.log(hand);
